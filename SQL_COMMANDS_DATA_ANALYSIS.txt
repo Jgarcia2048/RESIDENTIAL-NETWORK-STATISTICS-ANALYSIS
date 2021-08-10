@@ -1,0 +1,102 @@
+IONIA:
+
+Execution finished without errors.
+Result: 969 rows returned in 11ms
+At line 1:
+SELECT *
+FROM devices
+WHERE type ='Wi-Fi Bridged' OR type='Wi-Fi AP' OR type='Wi-Fi Ad-Hoc'
+
+CREATE VIEW VALID_APS AS
+SELECT *
+FROM devices
+WHERE type ='Wi-Fi Bridged' OR type='Wi-Fi AP' OR type='Wi-Fi Ad-Hoc'
+
+SELECT j.value
+FROM VALID_APS AS d
+JOIN json_tree(d.device) AS j
+WHERE j.key = 'dot11.advertisedssid.ssid';
+
+SELECT * FROM pkt
+WHERE frequency <= 3000000.0
+
+SELECT * FROM pkt
+WHERE frequency >= 5000000.0
+
+CREATE VIEW pkt AS
+SELECT * FROM packets
+WHERE sourcemac in
+(SELECT sourcemac FROM packets GROUP BY sourcemac HAVING COUNT(sourcemac)=1)
+
+EATON:
+
+Execution finished without errors.
+Result: 1223 rows returned in 16ms
+At line 1:
+SELECT *
+FROM devices
+WHERE type ='Wi-Fi Bridged' OR type='Wi-Fi AP' OR type='Wi-Fi Ad-Hoc'
+
+CREATE VIEW VALID_APS AS
+SELECT *
+FROM devices
+WHERE type ='Wi-Fi Bridged' OR type='Wi-Fi AP' OR type='Wi-Fi Ad-Hoc'
+
+SELECT j.value
+FROM VALID_APS AS d
+JOIN json_tree(d.device) AS j
+WHERE j.key = 'dot11.advertisedssid.ssid';
+
+CREATE VIEW temp AS
+SELECT *
+FROM VALID_APS AS d
+JOIN json_tree(d.device) AS j
+WHERE j.key = 'dot11.advertisedssid.ssid';
+
+SELECT * FROM pkt
+WHERE frequency <= 3000000.0
+
+SELECT * FROM pkt
+WHERE frequency >= 5000000.0
+
+CREATE VIEW pkt AS
+SELECT * FROM packets
+WHERE sourcemac in
+(SELECT sourcemac FROM packets GROUP BY sourcemac HAVING COUNT(sourcemac)=1)
+
+
+OAKLAND:
+
+Execution finished without errors.
+Result: 2255 rows returned in 1581ms
+At line 1:
+SELECT *
+FROM devices
+WHERE type ='Wi-Fi Bridged' OR type='Wi-Fi AP' OR type='Wi-Fi Ad-Hoc'
+
+CREATE VIEW VALID_APS AS
+SELECT *
+FROM devices
+WHERE type ='Wi-Fi Bridged' OR type='Wi-Fi AP' OR type='Wi-Fi Ad-Hoc';
+
+SELECT j.value
+FROM VALID_APS AS d
+JOIN json_tree(d.device) AS j
+WHERE j.key = 'dot11.advertisedssid.ssid';
+
+CREATE VIEW temp AS
+SELECT *
+FROM VALID_APS AS d
+JOIN json_tree(d.device) AS j
+WHERE j.key = 'dot11.advertisedssid.ssid';
+
+SELECT * FROM pkt
+WHERE frequency <= 3000000.0
+
+SELECT * FROM pkt
+WHERE frequency >= 5000000.0
+
+CREATE VIEW pkt AS
+SELECT * FROM packets
+WHERE sourcemac in
+(SELECT sourcemac FROM packets GROUP BY sourcemac HAVING COUNT(sourcemac)=1)
